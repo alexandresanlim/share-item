@@ -12,6 +12,8 @@ export default (req, res) => {
     var language = req.query.language;
     var recommentedBy = req.query.recommentedBy;
 
+    var query = req;
+
     var monetarySymbol = "$";
     var recommentedText = "Recommented by:"
     var descriptionText = "Description";
@@ -129,18 +131,30 @@ export default (req, res) => {
             recommentedByContent +
           "</div>"+
           "<div class='action' style='margin: 0 10 0 0'>"+
-            "<button type='button'><i class='fa fa-whatsapp' style='padding: 0 2'></i></button>"+
+            "<button type='button' onclick='whatsShare()'><i class='fa fa-whatsapp' style='padding: 0 2'></i></button>"+
           "</div>"+
           "<div class='action' style='margin: 0 10 0 0'>"+
-            "<button type='button'><i class='fa fa-twitter'></i></button>"+
+            "<button type='button' onclick='twitterShare()'><i class='fa fa-twitter'></i></button>"+
           "</div>"+
           "<div class='action'>"+
-            "<button type='button'><i class='fa fa-facebook' style='padding: 0 4'></i></button>"+
+            "<button type='button' onclick='facebookShare()'><i class='fa fa-facebook' style='padding: 0 4'></i></button>"+
           "</div>"+
         "</div>"+
       "</div>"+
     "</main>"+
-  "</body> </html>";
+    "<script>"+
+    "function whatsShare() {"+
+    "  window.open('https://wa.me/?text='+window.location.href);"+
+    "}"+
+    "function facebookShare() {"+
+    "  window.open('https://www.facebook.com/sharer.php?u='+window.location.href);"+
+    "}"+
+    "function twitterShare() {"+
+    "  window.open('https://twitter.com/intent/tweet?status='+window.location.href);"+
+    "}"+
+    "</script>"+
+  "</body>"+ 
+  "</html>";
   
     res.statusCode = 200;
     res.setHeader('Content-type', 'text/html')
