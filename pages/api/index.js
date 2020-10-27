@@ -147,10 +147,10 @@ export default (req, res) => {
     "  window.open('https://wa.me/?text='+window.location.href);"+
     "}"+
     "function facebookShare() {"+
-    "  window.open('https://www.facebook.com/sharer.php?u='+window.location.href);"+
+    "  window.open('https://www.facebook.com/sharer/sharer.php?u='+window.location.href);"+
     "}"+
     "function twitterShare() {"+
-    "  window.open('https://twitter.com/intent/tweet?status='+window.location.href);"+
+    "  window.open('https://twitter.com/intent/tweet?text='+window.location.href);"+
     "}"+
     "</script>"+
   "</body>"+ 
