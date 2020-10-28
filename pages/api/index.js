@@ -1,5 +1,3 @@
-
-
 export default (req, res) => {
 
     var title = req.query.title;
@@ -11,14 +9,16 @@ export default (req, res) => {
     var price = req.query.price;
     var language = req.query.language;
     var recommentedBy = req.query.recommentedBy;
-
-    var query = req;
+    var googlePlayPackageName = req.query.googlePlayPackageName;
+    var appStorePackageName = req.query.appStorePackageName;
 
     var monetarySymbol = "$";
     var recommentedText = "Recommented by:"
     var descriptionText = "Description";
     var characteristicsText = "Characteristics"
     var inStockText = "In stock"
+    var googlePlayLink = "";
+    var appStoreLink = "";
 
     if(language == "pt-br"){
       monetarySymbol = "R$";
@@ -48,6 +48,14 @@ export default (req, res) => {
       companyName = "";
     }
 
+    if(googlePlayPackageName != null && googlePlayPackageName != ""){
+      googlePlayLink = "https://play.google.com/store/apps/details?id=" + googlePlayPackageName;
+    }
+
+    if(appStorePackageName != null && appStorePackageName != ""){
+      appStoreLink = "https://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=" + appStorePackageName + "&amp;onlyLatestVersion=true&amp;pageNumber=0&amp;sortOrdering=1&amp;type=Purple+Software";
+    }
+
     var descriptionContent = "";
 
     if(description != null && description != ""){
@@ -70,6 +78,18 @@ export default (req, res) => {
       recommentedByContent = 
       "<p>"+recommentedText+"</p>"+
       "<h3>"+recommentedBy+"</h3>";
+    }
+
+    var appStoreContent = "";
+
+    if(appStoreLink != ""){
+      appStoreContent = "<a href='"+appStoreLink+"'><img style='margin: 10 0 0 0' src='https://developer.apple.com/app-store/marketing/guidelines/images/badge-download-on-the-app-store.svg'></img></a>";
+    }
+
+    var googlePlayContent = "";
+
+    if(googlePlayLink != ""){
+      googlePlayContent = "<a href='"+googlePlayLink+"'><img width=150 src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png'></img></a>";
     }
 
 
@@ -112,6 +132,7 @@ export default (req, res) => {
               characteristicsContent+
             "</div>"+
             "<span class='stock'><i class='fa fa-pen'></i>"+inStockText+"</span>"+
+            
             // "<div class='reviews'>"+
             // "<i class='fa fa-twitter'></i>"+
 
@@ -129,6 +150,10 @@ export default (req, res) => {
         "<div class='card__footer'>"+
           "<div class='recommend'>"+
             recommentedByContent +
+            "<div class='image' style='display: flex; margin:10 0 0 0; '>" +
+              appStoreContent +
+              googlePlayContent+
+            "</div>" +
           "</div>"+
           "<div class='action' style='margin: 0 10 0 0'>"+
             "<button type='button' onclick='whatsShare()'><i class='fa fa-whatsapp' style='padding: 0 2'></i></button>"+
